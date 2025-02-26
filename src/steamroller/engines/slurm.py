@@ -16,7 +16,8 @@ def slurm(commands, name, std, dep_ids=[], working_dir=None, gpu_count=0, time="
     acct = "-A {}".format(account) if account else "" #"-cwd"
     queue = "-p {}".format(queue) if queue else "" #"-cwd"
     gpus = "--gres=gpu:{}".format(gpu_count) if gpu_count else ""
-    qcommand = "sbatch {wd} {deps} -J {name} --kill-on-invalid-dep=yes --mail-type=NONE --mem={memory} -o {std} --parsable -t {time} {acct} {queue} {gpus}".format(
+    nodes = "--nodes=1"
+    qcommand = "sbatch {wd} {deps} -J {name} --kill-on-invalid-dep=yes --mail-type=NONE --mem={memory} -o {std} --parsable -t {time} {acct} {queue} {nodes} {gpus}".format(
         name=name,
         deps=deps,
         wd=wd,
@@ -25,6 +26,7 @@ def slurm(commands, name, std, dep_ids=[], working_dir=None, gpu_count=0, time="
         memory=memory,
         acct=acct,
         queue=queue,
+        nodes=nodes,
         gpus=gpus
     )
     logging.info("\n".join(commands))
