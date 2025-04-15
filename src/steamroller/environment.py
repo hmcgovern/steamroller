@@ -43,6 +43,7 @@ class Environment(Base):
             ("STEAMROLLER_MEMORY", "", "8G"),
             ("STEAMROLLER_TIME", "", "06:00:00"),
             ("STEAMROLLER_GPU_COUNT", "", 0),
+            ("STEAMROLLER_NODE_COUNT", "", 1),
             ("STEAMROLLER_NAME_PREFIX", "", "steamroller"),
             ("STEAMROLLER_SUBMIT_COMMAND", "", None),
             ("STEAMROLLER_SHELL", "", "#!/bin/bash"),

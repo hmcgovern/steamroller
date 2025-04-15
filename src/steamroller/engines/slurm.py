@@ -3,7 +3,7 @@ import re
 from .grid_engine import GridEngine
 from ..util import GridAwareBuilder, ActionMaker
 
-def slurm(commands, name, std, dep_ids=[], working_dir=None, gpu_count=0, time="12:00:00", memory="8G", queue=None, account=None):
+def slurm(commands, name, std, dep_ids=[], working_dir=None, gpu_count=0, time="12:00:00", memory="8G", queue=None, account=None, node_count=1):
     if not isinstance(commands, list):
         commands = [commands]
     if os.path.exists(std):
@@ -16,7 +16,7 @@ def slurm(commands, name, std, dep_ids=[], working_dir=None, gpu_count=0, time="
     acct = "-A {}".format(account) if account else "" #"-cwd"
     queue = "-p {}".format(queue) if queue else "" #"-cwd"
     gpus = "--gres=gpu:{}".format(gpu_count) if gpu_count else ""
-    nodes = "--nodes=1"
+    nodes = "--nodes={}".format(node_count) if node_count else ""
     qcommand = "sbatch {wd} {deps} -J {name} --kill-on-invalid-dep=yes --mail-type=NONE --mem={memory} -o {std} --parsable -t {time} {acct} {queue} {nodes} {gpus}".format(
         name=name,
         deps=deps,

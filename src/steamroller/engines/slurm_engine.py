@@ -38,6 +38,7 @@ class SlurmEngine(GridEngine):
             "${'--mem=' + STEAMROLLER_MEMORY if STEAMROLLER_MEMORY else ''}",
             "${'-p ' + STEAMROLLER_QUEUE if STEAMROLLER_QUEUE else ''}",
             "${'--gres=gpu:' + str(STEAMROLLER_GPU_COUNT) if STEAMROLLER_GPU_COUNT else ''}",
+            "${'--nodes=' + str(STEAMROLLER_NODE_COUNT) if STEAMROLLER_NODE_COUNT else ''}",
             "${'-d afterok:' + ':'.join(map(str, STEAMROLLER_DEPENDENCIES)) if STEAMROLLER_DEPENDENCIES else ''}",            
         ]
     )
